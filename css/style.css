@@ -1,0 +1,74 @@
+body,html {
+    margin: 0;
+    padding: 0;
+}
+* {
+    box-sizing: border-box;
+}
+.container{
+    box-sizing: border-box;
+    display: flex;
+    width: 900px;
+    padding: 2rem 0;
+    margin: 0 auto;
+    height: 100vh;
+}
+
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-right: 1rem;
+}
+
+.image-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-radius: 0.3rem;
+    padding-right: 0.3rem;
+}
+
+.active-label{
+    background: blue;
+    color: white;
+}
+
+.label img{
+    float: left;
+    height: 45px;
+    width: 45px;
+    margin: 0.3rem 0.3rem;
+    border-radius: 0.3rem;
+}
+
+.label-title{
+    display: flex;
+    max-width: 75%;
+}
+
+.left-text{
+    flex: 0 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+}
+
+.right-text{
+    flex:  1 0 auto;
+    overflow: hidden;
+    white-space: pre;
+}
+
+.preview-image{
+    width: 100%;
+    height: 90%;
+    border-radius: 0.3rem;
+}
