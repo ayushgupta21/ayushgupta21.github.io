@@ -49,11 +49,10 @@ function createLabelNode({previewImage, title}){
  * @param newTitle new image title
  */
 function updateCurrentLabelTitle(newTitle){
-    // Grab label node
+    data[getActiveDataIndex()].title = newTitle
     const labelNode = document.querySelector(`#label-${getActiveDataIndex()}`)
     // Remove last child as last child is the title node
     labelNode.removeChild(labelNode.lastChild)
-    // Add new title node
     labelNode.appendChild(createLabelTitleNode(newTitle))
 }
 
@@ -80,17 +79,11 @@ function deActivateLabel(labelIndex){
  */
 function renderSidebar(){
     const sidebarNode = document.querySelector('.sidebar')
-    // For each data item create a label node
-    data.forEach((item, index) => {
-        let labelNode = createLabelNode(item)
-        labelNode.setAttribute('id', `label-${index}`)
-        /**
-         * Add event listener on each label node for click event
-         * where a click on a label node updates the image to the image
-         * corresponding to this label node
-         * */
+    data.forEach((image, imageIndex) => {
+        let labelNode = createLabelNode(image)
+        labelNode.setAttribute('id', `label-${imageIndex}`)
         labelNode.addEventListener('click', () => {
-            updateImage(index)
+            updateImage(imageIndex)
         })
         sidebarNode.appendChild(labelNode)
     })
