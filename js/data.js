@@ -1,4 +1,5 @@
-export const data = [
+// Global data to be used for the page
+const data = [
   {
     "previewImage": "https://images.unsplash.com/photo-1561948955-570b270e7c36?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
     "title": "cat.jpeg"
@@ -21,13 +22,27 @@ export const data = [
   }
 ]
 
+// Index corresponding to currently shown image
 let activeDataIndex;
 
-export function getActiveDataIndex(){
+/**
+ * Getter for activeDataIndex
+ * @returns {*} activeDataIndex
+ */
+function getActiveDataIndex(){
   return activeDataIndex
 }
 
-export function setActiveDataIndex(dataIndex){
+/**
+ * Setter for activeDataIndex
+ * @param dataIndex new activeDataIndex
+ */
+function setActiveDataIndex(dataIndex){
   activeDataIndex = dataIndex
 }
 
+export {
+  data,
+  getActiveDataIndex,
+  setActiveDataIndex
+}

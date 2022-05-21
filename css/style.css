@@ -1,3 +1,10 @@
+/* Reset style */
+html {
+    font-family: "proxima-nova",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    line-height: 1.6;
+    font-weight: 400;
+    font-size: 16px;
+}
 body,html {
     margin: 0;
     padding: 0;
@@ -5,6 +12,8 @@ body,html {
 * {
     box-sizing: border-box;
 }
+
+/* Layout Container Class */
 .container{
     box-sizing: border-box;
     display: flex;
@@ -14,20 +23,26 @@ body,html {
     height: 100vh;
 }
 
+/* Sidebar Wrapper Class */
 .sidebar{
+    /* Column flex to align labels vertically */
     display: flex;
     flex-direction: column;
     width: 300px;
     margin-right: 1rem;
 }
 
+/* Active Image, title container class */
 .image-container{
     width: 100%;
     display: flex;
     flex-direction: column;
+    /* Place title horizontally in center of container */
     align-items: center;
+    color: gray;
 }
 
+/* Sidebar label class */
 .label{
     height: 60px;
     display: flex;
@@ -36,11 +51,13 @@ body,html {
     padding-right: 0.3rem;
 }
 
+/* Class to display active label */
 .active-label{
-    background: blue;
+    background: #107eff;
     color: white;
 }
 
+/* Class to display mini - image in the label */
 .label img{
     float: left;
     height: 45px;
@@ -49,26 +66,32 @@ body,html {
     border-radius: 0.3rem;
 }
 
+/* Image title display inside label */
 .label-title{
     display: flex;
-    max-width: 75%;
+    max-width: 80%;
 }
 
+/* Left part of label title which shows ellipsis */
 .left-text{
+    /* This part can't grow but can shrink */
     flex: 0 1 auto;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre;
 }
 
+/* Right part of label title */
 .right-text{
+    /* This part can grow but not shrink to accommodate for full length display */
     flex:  1 0 auto;
     overflow: hidden;
     white-space: pre;
 }
 
+/* Image inside the preview image container */
 .preview-image{
     width: 100%;
-    height: 90%;
+    height: 95%;
     border-radius: 0.3rem;
 }
