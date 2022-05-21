@@ -98,14 +98,21 @@ body,html {
     .container{
         flex-direction: column;
         padding: 0 0.3rem;
+        width: 100vw;
     }
     .sidebar{
         flex-direction: row;
+        width: 100%;
+        justify-content: space-evenly;
     }
     .label{
-        width: 19vw;
         flex: 0 0 auto;
         overflow: hidden;
+        margin: 3px 0;
+        justify-content:center;
+    }
+    .label-title{
+        display: none;
     }
     .image-container{
         width: calc(100vw - 0.6rem);
