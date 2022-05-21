@@ -1,38 +1,44 @@
-/**
- * This module contains source code for preview image rendering and update
- */
-import {data, getActiveDataIndex, setActiveDataIndex} from "./data.js";
+import {data, getActiveDataIndex, isValidDataIndex, setActiveDataIndex} from "./data.js";
 import {activateLabel, deActivateLabel, updateCurrentLabelTitle} from "./sidebar.js";
 
 /**
  * Function to render active image on right half of screen
  * @param imageIndex index of image in data array
  */
-function renderImage(imageIndex){
-    const {previewImage, title} = data[imageIndex]
+function renderActiveImage({previewImage, title}) {
     const imageContainerNode = document.querySelector('.image-container')
     imageContainerNode.innerHTML = `<img src=${previewImage} class="preview-image" alt="${title}"/>
                                     <p contenteditable="true" id="active-title" >${title}</p >`
     const titleEditorNode = document.querySelector('#active-title')
-    titleEditorNode.addEventListener('input', function (){
+    // Add event listener to update label title on active title edit
+    titleEditorNode.addEventListener('input', function () {
         updateCurrentLabelTitle(this.innerText.trim())
     })
+}
+
+/**
+ * Function to check if a data index is valid
+ * data index to update active image
+ * @param dataIndex index corresponding to
+ * @returns {boolean}
+ */
+function isValidUpdateIndex(dataIndex) {
+    return dataIndex !== getActiveDataIndex() && isValidDataIndex(dataIndex)
 }
 
 /**
  * Function to update the preview image with a new image
  * @param nextImageIndex new image index in data array
  */
-function updateImage(nextImageIndex){
-    // Don't update if nextImageIndex is same as currentActiveIndex
-    if(nextImageIndex===getActiveDataIndex())return
+function updateActiveImageByIndex(nextImageIndex) {
+    if (!isValidUpdateIndex(nextImageIndex)) return
     activateLabel(nextImageIndex)
     deActivateLabel(getActiveDataIndex())
     setActiveDataIndex(nextImageIndex)
-    renderImage(nextImageIndex)
+    renderActiveImage(data[nextImageIndex])
 }
 
 export {
-    renderImage,
-    updateImage
+    renderActiveImage,
+    updateActiveImageByIndex
 }

@@ -1,19 +1,14 @@
 /* Reset style */
-html {
-    font-family: "proxima-nova",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: "proxima-nova", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
     line-height: 1.6;
     font-weight: 400;
     font-size: 16px;
 }
-body,html {
-    margin: 0;
-    padding: 0;
-}
-* {
-    box-sizing: border-box;
-}
 
-.container{
+.container {
     box-sizing: border-box;
     display: flex;
     width: 900px;
@@ -22,36 +17,33 @@ body,html {
     height: 100vh;
 }
 
-.sidebar{
+.sidebar {
     display: flex;
     flex-direction: column;
     width: 300px;
     margin-right: 15px;
 }
 
-.image-container{
+.image-container {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     color: gray;
 }
 
-.label{
-    height: 60px;
+.label {
     display: flex;
     align-items: center;
     border-radius: 6px;
-    padding: 0.5em  ;
+    padding: 0.5em;
 }
 
-.active-label{
+.active-label {
     background: #005cc5;
     color: white;
 }
 
-.label img{
-    float: left;
+.label img {
     height: 45px;
     width: 45px;
     margin-right: 6px;
@@ -59,29 +51,24 @@ body,html {
     object-fit: cover;
 }
 
-.label-title{
+.label-title {
     display: flex;
     max-width: 80%;
 }
 
-/* Left part of label title which shows ellipsis */
-.left-text{
-    /* This part can't grow but can shrink */
-    flex: 0 1 auto;
+.left-text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre;
 }
 
-/* Right part of label title */
-.right-text{
-    /* This part can grow but not shrink to accommodate for full length display */
-    flex:  1 0 auto;
+.right-text {
+    flex: 1 0 auto;
     overflow: hidden;
     white-space: pre;
 }
 
-.preview-image{
+.preview-image {
     width: 100%;
     height: 96%;
     border-radius: 6px;
@@ -89,32 +76,37 @@ body,html {
     flex: 1 0 auto;
 }
 
-.image-container p{
+.image-container p {
     width: 100%;
     text-align: center;
 }
 
 @media screen and (max-width: 900px) {
-    .container{
+    .container {
         flex-direction: column;
         padding: 0 0.3rem;
         width: 100vw;
     }
-    .sidebar{
+
+    .sidebar {
         flex-direction: row;
         width: 100%;
         justify-content: space-evenly;
     }
-    .label{
+
+    .label {
         flex: 0 0 auto;
         overflow: hidden;
         margin: 3px 0;
-        justify-content:center;
+        justify-content: center;
     }
-    .label-title{
+
+    .label-title {
         display: none;
     }
-    .image-container{
+
+    .image-container {
         width: calc(100vw - 0.6rem);
+        height: 80%;
     }
 }

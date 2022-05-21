@@ -1,19 +1,15 @@
-/**
- * This module contains the source code to manipulate sidebar and data
- * on user interaction
- */
 import {data, getActiveDataIndex, setActiveDataIndex} from "./data.js";
-import {updateImage} from "./image.js";
+import {updateActiveImageByIndex} from "./activeimage.js";
 
 /**
  * Function to break a string into two separate parts
  * to help show ellipsis in the center during overflow
- * @param text the string to split
+ * @param title the string to split
  * @returns {*[]} array of 2 strings obtained rom breaking text
  */
-function breakText(text){
-    const leftPartSize = text.length > 10 ? text.length-10 : text.length;
-    return [text.slice(0,leftPartSize), text.slice(leftPartSize)]
+function splitTitle(title) {
+    const leftPartSize = title.length > 10 ? title.length - 10 : title.length;
+    return [title.slice(0, leftPartSize), title.slice(leftPartSize)]
 }
 
 /**
@@ -21,10 +17,10 @@ function breakText(text){
  * @param title title of image label
  * @returns {HTMLDivElement} HTML DOM node to render label title
  */
-function createLabelTitleNode(title){
+function createLabelTitleNode(title) {
     const labelTitleNode = document.createElement('div')
     labelTitleNode.setAttribute('class', 'label-title')
-    const [leftTitle, rightTitle] = breakText(title)
+    const [leftTitle, rightTitle] = splitTitle(title)
     labelTitleNode.innerHTML = `<div class="left-text">${leftTitle}</div> 
                             <div class="right-text">${rightTitle}</div>`
     return labelTitleNode
@@ -36,10 +32,10 @@ function createLabelTitleNode(title){
  * @param title image title
  * @returns {HTMLDivElement} HTML DOM node containing the label
  */
-function createLabelNode({previewImage, title}){
+function createLabelNode({previewImage, title}) {
     const labelNode = document.createElement('div')
     labelNode.setAttribute('class', 'label')
-    labelNode.innerHTML = `<div><img src=${previewImage} alt="${title}"/></div>`
+    labelNode.innerHTML = `<img src=${previewImage} alt="${title}"/>`
     labelNode.appendChild(createLabelTitleNode(title))
     return labelNode
 }
@@ -48,7 +44,7 @@ function createLabelNode({previewImage, title}){
  * Function to update label title for currently active image
  * @param newTitle new image title
  */
-function updateCurrentLabelTitle(newTitle){
+function updateCurrentLabelTitle(newTitle) {
     data[getActiveDataIndex()].title = newTitle
     const labelNode = document.querySelector(`#label-${getActiveDataIndex()}`)
     // Remove last child as last child is the title node
@@ -60,7 +56,7 @@ function updateCurrentLabelTitle(newTitle){
  * Function to show a label active visually
  * @param labelIndex index of label image in data array
  */
-function activateLabel(labelIndex){
+function activateLabel(labelIndex) {
     const labelNode = document.querySelector(`#label-${labelIndex}`)
     labelNode.classList.add('active-label')
 }
@@ -69,7 +65,7 @@ function activateLabel(labelIndex){
  * Function to make an active label inactive visually
  * @param labelIndex index of label image in data array
  */
-function deActivateLabel(labelIndex){
+function deActivateLabel(labelIndex) {
     const labelNode = document.querySelector(`#label-${labelIndex}`)
     labelNode.classList.remove('active-label')
 }
@@ -77,20 +73,21 @@ function deActivateLabel(labelIndex){
 /**
  * Function to render sidebar on screen
  */
-function renderSidebar(){
+function renderSidebar() {
     const sidebarNode = document.querySelector('.sidebar')
     data.forEach((image, imageIndex) => {
         let labelNode = createLabelNode(image)
         labelNode.setAttribute('id', `label-${imageIndex}`)
+        // Add event listener to update active image on click
         labelNode.addEventListener('click', () => {
-            updateImage(imageIndex)
+            updateActiveImageByIndex(imageIndex)
         })
         sidebarNode.appendChild(labelNode)
     })
 }
 
 export {
-    breakText,
+    splitTitle,
     createLabelNode,
     createLabelTitleNode,
     setActiveDataIndex,

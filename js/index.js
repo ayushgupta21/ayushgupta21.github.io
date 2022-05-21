@@ -1,28 +1,26 @@
 import {data, getActiveDataIndex, setActiveDataIndex} from './data.js'
 import {activateLabel, renderSidebar} from "./sidebar.js";
-import {renderImage, updateImage} from "./image.js";
+import {renderActiveImage, updateActiveImageByIndex} from "./activeimage.js";
 
 /**
  * Function to render page on window load
  */
-function renderInitialPage(){
+function renderInitialPage() {
     renderSidebar()
-    // If there is some data render active image with first image in data array
-    if(data.length)
-    {
+    // If there is some data, render active image with first image in data array
+    if (data.length) {
         setActiveDataIndex(0)
-        activateLabel(getActiveDataIndex())
-        renderImage(getActiveDataIndex())
+        activateLabel(0)
+        renderActiveImage(data[0])
     }
-    /**
-     * Add event listener on arrow up and down key press to update active image
-     */
     document.addEventListener('keydown', (event) => {
-        if(event.code === 'ArrowUp'){
-            if(getActiveDataIndex() > 0) updateImage(getActiveDataIndex() - 1)
+        // On up key press next active image will be the image just before current active image in data array
+        if (event.code === 'ArrowUp') {
+            updateActiveImageByIndex(getActiveDataIndex() - 1)
         }
-        else if(event.code === 'ArrowDown'){
-            if(getActiveDataIndex() < data.length - 1) updateImage(getActiveDataIndex() + 1)
+        // On down key press next active image will be the image just after current active image in data array
+        else if (event.code === 'ArrowDown') {
+            updateActiveImageByIndex(getActiveDataIndex() + 1)
         }
     })
 }
