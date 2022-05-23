@@ -7,20 +7,21 @@ import {activateLabelByIndex, deActivateLabel, updateCurrentLabelTitle} from "./
  */
 function renderActiveImage({previewImage, title}) {
     const imageContainerNode = document.querySelector('.image-container')
+    // Append active image to imageContainerNode using innerHTMl and string literal
     imageContainerNode.innerHTML = `<img src=${previewImage} class="preview-image" alt="${title}"/>
                                     <p contenteditable="true" id="active-title" >${title}</p >`
     const titleEditorNode = document.querySelector('#active-title')
-    // Add event listener to update label title on active title edit
     titleEditorNode.addEventListener('input', function () {
         updateCurrentLabelTitle(this.innerText.trim())
     })
 }
 
 /**
- * Function to check if a data index is valid
- * data index to update active image
+ * Function to check if a data index is valid data index to update
+ * active image by checking whether new index is different from
+ * current one and the new index is a valid index in data array
  * @param dataIndex index corresponding to
- * @returns {boolean}
+ * @returns {boolean} if dataIndex is valid update index
  */
 function isValidUpdateIndex(dataIndex) {
     return dataIndex !== getActiveDataIndex() && isValidDataIndex(dataIndex)

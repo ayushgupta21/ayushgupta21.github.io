@@ -43,6 +43,7 @@ function setActiveDataIndex(dataIndex) {
 
 /**
  * Function to check if an index is valid for data array
+ * by checking whether the index lies in between 0 to length -1
  * @param dataIndex index to check
  * @returns {boolean} valid index or not
  */

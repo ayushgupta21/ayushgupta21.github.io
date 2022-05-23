@@ -1,15 +1,15 @@
-import {data, getActiveDataIndex, isValidDataIndex, setActiveDataIndex} from "./data.js";
+import {data, getActiveDataIndex, isValidDataIndex} from "./data.js";
 import {updateActiveImageByIndex} from "./activeimage.js";
 
 /**
- * Function to break a string into two separate parts
- * to help show ellipsis in the center during overflow
+ * Function to split label title into two separate parts with second part of fixed
+ * length of either 0 or 10 last characters and first part of remaining characters
  * @param title the string to split
- * @returns {*[]} array of 2 strings obtained rom breaking text
+ * @returns {*[]} array of 2 strings obtained from splitting text
  */
 function splitTitle(title) {
-    const leftPartSize = title.length > 10 ? title.length - 10 : title.length;
-    return [title.slice(0, leftPartSize), title.slice(leftPartSize)]
+    const firstPartSize = title.length > 10 ? title.length - 10 : title.length;
+    return [title.slice(0, firstPartSize), title.slice(firstPartSize)]
 }
 
 /**
@@ -20,9 +20,13 @@ function splitTitle(title) {
 function createLabelTitleNode(title) {
     const labelTitleNode = document.createElement('div')
     labelTitleNode.setAttribute('class', 'label-title')
-    const [leftTitle, rightTitle] = splitTitle(title)
-    labelTitleNode.innerHTML = `<div class="left-text">${leftTitle}</div> 
-                            <div class="right-text">${rightTitle}</div>`
+    const [leftPart, rightPart] = splitTitle(title)
+    /**
+     * Append label title in labelTitleNode by splitting label title into
+     * two parts. To show ellipsis in center, show ellipsis in left part
+     */
+    labelTitleNode.innerHTML = `<div class="left-text">${leftPart}</div> 
+                            <div class="right-text">${rightPart}</div>`
     return labelTitleNode
 }
 
@@ -35,6 +39,7 @@ function createLabelTitleNode(title) {
 function createLabelNode({previewImage, title}) {
     const labelNode = document.createElement('div')
     labelNode.setAttribute('class', 'label')
+    // Append label image in labelNode using innerHTMl and string literal
     labelNode.innerHTML = `<img src=${previewImage} alt="${title}"/>`
     labelNode.appendChild(createLabelTitleNode(title))
     return labelNode
@@ -47,7 +52,6 @@ function createLabelNode({previewImage, title}) {
 function updateCurrentLabelTitle(newTitle) {
     data[getActiveDataIndex()].title = newTitle
     const labelNode = document.querySelector(`#label-${getActiveDataIndex()}`)
-    // Remove last child as last child is the title node
     labelNode.removeChild(labelNode.lastChild)
     labelNode.appendChild(createLabelTitleNode(newTitle))
 }
@@ -79,7 +83,6 @@ function renderSidebar() {
     data.forEach((image, imageIndex) => {
         let labelNode = createLabelNode(image)
         labelNode.setAttribute('id', `label-${imageIndex}`)
-        // Add event listener to update active image on click
         labelNode.addEventListener('click', () => {
             updateActiveImageByIndex(imageIndex)
         })
@@ -88,12 +91,7 @@ function renderSidebar() {
 }
 
 export {
-    splitTitle,
-    createLabelNode,
-    createLabelTitleNode,
-    setActiveDataIndex,
     updateCurrentLabelTitle,
-    getActiveDataIndex,
     activateLabelByIndex,
     deActivateLabel,
     renderSidebar
