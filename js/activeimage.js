@@ -1,5 +1,5 @@
 import {data, getActiveDataIndex, isValidDataIndex, setActiveDataIndex} from "./data.js";
-import {activateLabel, deActivateLabel, updateCurrentLabelTitle} from "./sidebar.js";
+import {activateLabelByIndex, deActivateLabel, updateCurrentLabelTitle} from "./sidebar.js";
 
 /**
  * Function to render active image on right half of screen
@@ -32,7 +32,7 @@ function isValidUpdateIndex(dataIndex) {
  */
 function updateActiveImageByIndex(nextImageIndex) {
     if (!isValidUpdateIndex(nextImageIndex)) return
-    activateLabel(nextImageIndex)
+    activateLabelByIndex(nextImageIndex)
     deActivateLabel(getActiveDataIndex())
     setActiveDataIndex(nextImageIndex)
     renderActiveImage(data[nextImageIndex])

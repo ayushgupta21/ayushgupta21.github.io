@@ -1,18 +1,15 @@
-import {data, getActiveDataIndex, setActiveDataIndex} from './data.js'
-import {activateLabel, renderSidebar} from "./sidebar.js";
+import {data, getActiveDataIndex, isValidDataIndex, setActiveDataIndex} from './data.js'
+import {activateLabelByIndex, renderSidebar} from "./sidebar.js";
 import {renderActiveImage, updateActiveImageByIndex} from "./activeimage.js";
 
 /**
  * Function to render page on window load
  */
-function renderInitialPage() {
+function renderInitialPage(initialActiveDataIndex) {
     renderSidebar()
-    // If there is some data, render active image with first image in data array
-    if (data.length) {
-        setActiveDataIndex(0)
-        activateLabel(0)
-        renderActiveImage(data[0])
-    }
+    setActiveDataIndex(initialActiveDataIndex)
+    activateLabelByIndex(initialActiveDataIndex)
+    if(isValidDataIndex(initialActiveDataIndex)) renderActiveImage(data[initialActiveDataIndex])
     document.addEventListener('keydown', (event) => {
         // On up key press next active image will be the image just before current active image in data array
         if (event.code === 'ArrowUp') {
@@ -25,4 +22,5 @@ function renderInitialPage() {
     })
 }
 
-renderInitialPage()
+// Render initial view of page with first image data in data array
+renderInitialPage(0)

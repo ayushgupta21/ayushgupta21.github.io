@@ -38,7 +38,7 @@ function getActiveDataIndex() {
  * @param dataIndex new activeDataIndex
  */
 function setActiveDataIndex(dataIndex) {
-    activeDataIndex = dataIndex
+    if(isValidDataIndex(dataIndex)) activeDataIndex = dataIndex
 }
 
 /**

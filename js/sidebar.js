@@ -1,4 +1,4 @@
-import {data, getActiveDataIndex, setActiveDataIndex} from "./data.js";
+import {data, getActiveDataIndex, isValidDataIndex, setActiveDataIndex} from "./data.js";
 import {updateActiveImageByIndex} from "./activeimage.js";
 
 /**
@@ -56,7 +56,8 @@ function updateCurrentLabelTitle(newTitle) {
  * Function to show a label active visually
  * @param labelIndex index of label image in data array
  */
-function activateLabel(labelIndex) {
+function activateLabelByIndex(labelIndex) {
+    if(!isValidDataIndex(labelIndex)) return
     const labelNode = document.querySelector(`#label-${labelIndex}`)
     labelNode.classList.add('active-label')
 }
@@ -93,7 +94,7 @@ export {
     setActiveDataIndex,
     updateCurrentLabelTitle,
     getActiveDataIndex,
-    activateLabel,
+    activateLabelByIndex,
     deActivateLabel,
     renderSidebar
 }
