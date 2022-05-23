@@ -1,2 +1,2 @@
 # Project Site
-[Demo Link](https://www.ayushgupta21.github.io)
+[Demo Link](https://ayushgupta21.github.io)
